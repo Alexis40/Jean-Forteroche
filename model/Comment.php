@@ -6,6 +6,7 @@ class Comment extends AbstractEntity{
     private $_idChapter;
     private $_content;
     private $_dateOfPublication;
+    private $_author;
 
     //ATTRIBUT ID
     public function getId(){
@@ -37,5 +38,13 @@ class Comment extends AbstractEntity{
     }
     public function setDateOfPublication($dateOfPublication){
         $this->_dateOfPublication = $dateOfPublication;
+    }
+
+    //ATTRIBUT AUTHOR
+    public function getAuthor(){
+        return $this->_author;
+    }
+    public function setAuthor($author){
+        $this->_author = $author;
     }
 }

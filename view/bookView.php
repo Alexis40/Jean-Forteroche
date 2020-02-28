@@ -14,7 +14,8 @@
 </div>
 <div class="commentaire">
     <?php foreach($commentsList as $comment): ?>
-      <p><?= $comment->getContent() ?></p>
+      <p><strong><?= $comment->getAuthor()?></strong> à ecrit le <em><?=$comment->getDateOfPublication();?></em>
+      <?= $comment->getContent() ?></p>
     <?php endforeach;?>
 </div>
 
