@@ -1,6 +1,8 @@
 <?php
 require_once('framework/Autoloader.php');
+
 Autoloader::register();
+session_start();
 
 $page = $_REQUEST['page'] ?? 'home';
 
@@ -15,12 +17,28 @@ switch($page){
         echo $controller->chapter();
         break;
     
-
+    case 'addComment';
+        $controller = new Controller();
+        echo $controller->addComment();
+        break;
+    
+    case 'login';
+        $controller = new Controller();
+        echo $controller->loginPage();
+        break;
+        
     case 'connexion';
         $controller = new Controller();
-        echo $controller->connexionPage();
+        echo $controller->connexion();
+        break;
+
+    case 'registration';
+        $controller = new Controller();
+        echo $controller->registration();
         break;
         
     default:
-        echo 'affichage page par defaut';
+        $controller = new Controller();
+        echo $controller->errorPage();
+        
 }

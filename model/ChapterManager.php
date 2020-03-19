@@ -14,11 +14,23 @@ class ChapterManager extends Model{
         }
         return $chaptersList;
     }
+
+    public function getAllChapters(){
+        $sql = ('SELECT * FROM chapter ORDER BY chapterNumber');
+        $allChaptersList = [];
+        $statement = $this->executeQuery($sql);
+        while($rs = $statement->fetch()){
+            $chapter = new Chapter($rs);
+            $allChaptersList[]= $chapter;
+        }
+        return $allChaptersList;
+    }
+
     /*Permet de récuperer un chapitre donc on connais l'id*/
     public function getChapter($id){
         $sql = ('SELECT * FROM chapter WHERE id = ?');
-
-        $statement = $this->prepareQuery($sql, $id);
+        $args = array($id);
+        $statement = $this->prepareQuery($sql, $args);
         $rs = $statement->fetch();
         if($rs!=null){
             $chapter = new Chapter($rs);

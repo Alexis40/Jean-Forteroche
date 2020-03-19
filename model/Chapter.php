@@ -36,8 +36,11 @@ class Chapter extends AbstractEntity{
     public function getAllContent(){
         return $this->_content;
     }
-    public function getShortContent(){
+    public function getShortContent500(){
         return substr($this->_content, 0, 500);
+    }
+    public function getShortContent100(){
+        return substr($this->_content, 0, 100);
     }
     public function setContent($content){
         $this->_content = $content;

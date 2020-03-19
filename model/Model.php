@@ -8,10 +8,11 @@ abstract class Model{
         $req = $this->getDb()->query($sql);
         return $req;
     }
-    //Fonction de création d'une requète préparé. $sql correspond à la requète qui sera ecrit dans chapterManager.
-    protected function prepareQuery($sql, $id){
+    //Fonction de création d'une requète préparé. $sql correspond à la requète qui sera ecrit dans chapterManager et 
+    //$args sont les arguements à entrer en paramètre.
+    protected function prepareQuery($sql, $args){
         $req = $this->getDb()->prepare($sql);
-        $req->execute(array($id));
+        $req->execute($args);
         return $req;
     }
 

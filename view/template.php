@@ -13,7 +13,15 @@
                 <ul>
                     <li><a href="index.php?page=home">Accueil</a></li>
                     <li><a href="index.php?page=book">Billet simple pourl'Alaska</a></li>
-                    <li><a href="index.php?page=connexion">Connexion</a></li>
+                    <li class="menuMemberOnClick"><a href="#">Espace membre<div class="triangle"></div></a>
+
+                        <ul class="menuMember">
+                            <li><a href="index.php?page=login">Connexion</a></li>
+                            <li><a href="#">Deconnexion</a></li>
+                            <li><a href="index.php?page=registration">Inscription</a></li>
+                           
+                        </ul>
+                    </li>
                 </ul>
             </nav>
         </header>
@@ -46,6 +54,8 @@
                 avis sont fictif. Jean Forteroche n'est pas réeellement un ecrivain, et si c'est le cas vous ne trouverez 
                 aucune information le concernant sur ce site. </h4>
         </footer>
+
+        <script src="public/JavaScript/blogJeanForteroche.js"></script>
     </body>
 </html>
     

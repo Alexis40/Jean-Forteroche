@@ -36,6 +36,12 @@ class Comment extends AbstractEntity{
     public function getDateOfPublication(){
         return $this->_dateOfPublication;
     }
+
+    public function getDateOfPublicationDMYHIS(){
+        $date = $this->_dateOfPublication;
+        return self::toHTMLWithHours($date);
+    }
+    
     public function setDateOfPublication($dateOfPublication){
         $this->_dateOfPublication = $dateOfPublication;
     }

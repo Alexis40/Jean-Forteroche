@@ -24,9 +24,13 @@ abstract class AbstractEntity{
 	public function toSQL($date, $before = 'd/m/Y') {
 		return self::alter($date, $before, 'Y-m-d H:i:s');
     }
-    
+
 	public function toHTML($date, $before = 'Y-m-d H:i:s') {
 		return self::alter($date, $before, 'd/m/Y');
+    }
+
+    public function toHTMlWithHours($date, $before = 'Y-m-d H:i:s') {
+		return self::alter($date, $before, 'd/m/Y à H:i:s' );
     }
     
 }
