@@ -3,8 +3,8 @@
 class Member extends AbstractEntity{
 
     private $_id;
-    private $_alias;
-    private $_password;
+    private $_pseudo;
+    private $_pass;
     private $_registrationDate;
 
     //ATTRIBUT ID
@@ -16,19 +16,19 @@ class Member extends AbstractEntity{
     }
 
     //ATTRIBUT ALIAS
-    public function getAlias(){
-        return $this->_alias;
+    public function getPseudo(){
+        return $this->_pseudo;
     }
-    public function setAlias($alias){
-        $this->_alias = $alias;
+    public function setPseudo($pseudo){
+        $this->_pseudo = $pseudo;
     }
 
     //ATTRIBUT PASSWORD
-    public function getPassword(){
-        return $this->_password;
+    public function getPass(){
+        return $this->_pass;
     }
-    public function setPassword($password){
-        $this->_password = $password;
+    public function setPass($pass){
+        $this->_pass = $pass;
     }
 
     //ATTRIBUT REGISTRATIONDATE

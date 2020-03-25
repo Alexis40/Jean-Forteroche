@@ -17,9 +17,8 @@
 
                         <ul class="menuMember">
                             <li><a href="index.php?page=login">Connexion</a></li>
-                            <li><a href="#">Deconnexion</a></li>
+                            <li class="logout"><a href="#">Deconnexion</a></li>
                             <li><a href="index.php?page=registration">Inscription</a></li>
-                           
                         </ul>
                     </li>
                 </ul>

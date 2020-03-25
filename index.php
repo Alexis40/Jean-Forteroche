@@ -32,9 +32,14 @@ switch($page){
         echo $controller->connexion();
         break;
 
+    case 'deconnexion';
+        $controller = new Controller();
+        echo $controller->deconnexion();
+        break;
+
     case 'registration';
         $controller = new Controller();
-        echo $controller->registration();
+        echo $controller->registrationPage();
         break;
         
     default:
