@@ -1,8 +1,8 @@
 <h2>Connexion à votre espace membre</h2>
 <p class='warningMessage'>
     <?php
-    if(!empty($warningMessage)){
-        echo $warningMessage;
+    if(!empty($warningConnexionMessage)){
+        echo $warningConnexionMessage;
     }
     ?>
 </p>

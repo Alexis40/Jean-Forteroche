@@ -25,8 +25,8 @@
 
 <p class='warningMessage'>
     <?php
-    if(!empty($message)){
-        echo $message;
+    if(!empty($warningRegistrationMessage)){
+        echo $warningRegistrationMessage;
     }
     ?>
 </p>

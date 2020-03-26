@@ -1,3 +1,7 @@
+<?php
+$member=unserialize($_SESSION['member']);
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,14 +17,20 @@
                 <ul>
                     <li><a href="index.php?page=home">Accueil</a></li>
                     <li><a href="index.php?page=book">Billet simple pourl'Alaska</a></li>
-                    <li class="menuMemberOnClick"><a href="#">Espace membre<div class="triangle"></div></a>
-
-                        <ul class="menuMember">
-                            <li><a href="index.php?page=login">Connexion</a></li>
-                            <li class="logout"><a href="#">Deconnexion</a></li>
-                            <li><a href="index.php?page=registration">Inscription</a></li>
-                        </ul>
-                    </li>
+                    <?php if(!empty($_SESSION)): ?>
+                        <li class="logout"><a href="#">Bonjour <?= $member->getPseudo()?></a><div class="triangle"></div>
+                            <ul class="menuMember">
+                                <li><a href="index.php?page=deconnexion">Deconnexion</a></li>
+                            </ul>
+                        </li>    
+                    <?php else : ?>
+                        <li class="menuMemberOnClick"><a href="#">Espace membre<div class="triangle"></div></a>
+                            <ul class="menuMember">
+                                <li><a href="index.php?page=login">Connexion</a></li>
+                                <li><a href="index.php?page=registration">Inscription</a></li>
+                            </ul>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </nav>
         </header>
@@ -54,7 +64,8 @@
                 aucune information le concernant sur ce site. </h4>
         </footer>
 
-        <script src="public/JavaScript/blogJeanForteroche.js"></script>
+        <script src="public/JavaScript/SpaceMember.js"></script>
+        <script src="public/JavaScript/main.js"></script>
     </body>
 </html>
     

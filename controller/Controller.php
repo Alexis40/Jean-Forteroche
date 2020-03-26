@@ -48,7 +48,7 @@ class Controller{
 
         return $view->render('view/loginView.php', ['title'=>$title, 'pseudo'=>$pseudo, 'warningConnexionMessage'=>$warningConnexionMessage]);
     }
-    //CETTE FOONCTION EST APPELÉ QUAN DON APPUI SUR LE LIEN DE CONNEXION.
+    //CETTE FOONCTION EST APPELÉ QUAND ON APPUI SUR LE LIEN DE CONNEXION.
     public function connexion(){
         $pseudo = $_POST['connectPseudo'];
         $password = $_POST['connectPassword'];
@@ -77,11 +77,12 @@ class Controller{
 
     //CETTE FONCTION EST APPELÉ QUAND ON APPUIS SUR LE LIEN DE DECONNEXION
     public function deconnexion(){
+        $_SESSION = array();
         session_destroy();
         return $this->chaptersList();
     }
 
-    public function registrationPage($warningRegistartionMessage=null){
+    public function registrationPage($warningRegistrationMessage=null){
         $title = 'Créer un compte';
         if(isset($_POST['chooseUsername'])){
             //REGEX PERMETTANT DE CONTRAINDRE LES CHAMPS D'ENREGISTREMENTS.
@@ -92,25 +93,23 @@ class Controller{
                         $newMember->setPseudo($_POST['chooseUsername']);
                         $encodedPassword = password_hash($_POST['choosePassword'], PASSWORD_DEFAULT);
                         $newMember->setPass($encodedPassword);
-                        $warningRegistartionMessage = 'Vous avez bien été ajouter comme membre. Vous pouvez maintenant vous rendre dans la section connexion et entrer votre identifiant/mot de passe pour acceder à votre espace membre.';
-                        var_dump($newMember->getPseudo());
-                        //Création d'une fonction dans MemberManager pour inserer un membre dans la base.
                         $addMember = new MembersManager();
                         $addMember->addmember($newMember);
+                        $warningRegistrationMessage = 'Vous êtes maintenant enregistré, vous pouvez vous rendre sur la page de connexion et entrer vos identifiant.';
                     } else {
-                        $warningRegistartionMessage = 'Les mots de passe sont différents';
+                        $warningRegistrationMessage = 'Les mots de passe sont différents';
                     }
                 } else {
-                    $warningRegistartionMessage = 'Le mot de passe doit comporter au moins 5 caractères, 1 majuscule et 1 chiffre.';
+                    $warningRegistrationMessage = 'Le mot de passe doit comporter au moins 5 caractères, 1 majuscule et 1 chiffre.';
                 }
             } else {
-                $warningRegistartionMessage = 'Le nom choisi doit comporter au moins 2 caractères et commençer par une lettre.';
+                $warningRegistrationMessage = 'Le nom choisi doit comporter au moins 2 caractères et commençer par une lettre.';
             }
         }
         
         $view = new View();
 
-        return $view->render('view/registrationView.php', ['title'=>$title, 'warningRegistrationMessage'=>$warningRegistartionMessage]);
+        return $view->render('view/registrationView.php', ['title'=>$title, 'warningRegistrationMessage'=>$warningRegistrationMessage]);
     }
 
     public function errorPage(){
