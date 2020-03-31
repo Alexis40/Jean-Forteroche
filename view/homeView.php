@@ -1,5 +1,6 @@
 <div id="slider">
-    <img class="sliderPicture" src="public/images/img1_1920x1200.jpg" alt="">
+    <div id ="image"></div>
+    <div id ="instruction"></div>
 </div>
 
 <div id="bio">
@@ -25,4 +26,5 @@
             <?php endforeach;?>
         </div>
 </div>
+
   

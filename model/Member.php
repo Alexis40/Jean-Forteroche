@@ -6,6 +6,7 @@ class Member extends AbstractEntity{
     private $_pseudo;
     private $_pass;
     private $_registrationDate;
+    private $_type;
 
     //ATTRIBUT ID
     public function getId(){
@@ -15,7 +16,7 @@ class Member extends AbstractEntity{
         $this->_id = $id;
     }
 
-    //ATTRIBUT ALIAS
+    //ATTRIBUT PSEUDO
     public function getPseudo(){
         return $this->_pseudo;
     }
@@ -37,5 +38,13 @@ class Member extends AbstractEntity{
     }
     public function setRegistrationDate($registrationDate){
         $this->_registrationDate = $registrationDate;
+    }
+
+    //ATTRIBUT TYPE
+    public function getType(){
+        return $this->_type;
+    }
+    public function setType($type){
+        $this->_type = $type;
     }
 }

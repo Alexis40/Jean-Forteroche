@@ -1,7 +1,3 @@
-<?php
-$member=unserialize($_SESSION['member']);
-?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,20 +13,30 @@ $member=unserialize($_SESSION['member']);
                 <ul>
                     <li><a href="index.php?page=home">Accueil</a></li>
                     <li><a href="index.php?page=book">Billet simple pourl'Alaska</a></li>
-                    <?php if(!empty($_SESSION)): ?>
-                        <li class="logout"><a href="#">Bonjour <?= $member->getPseudo()?></a><div class="triangle"></div>
+<!-- CES CONDITIONS PERMETTENT D'ASSURER LA GESTION DES DIFFÉRENTS AFFICHAGES DE LA SECTION MEMBRE EN FONCTION DU TYPE DE MENBRE CONNECTÉ-->
+                    <?php if((!empty($member)) && ($member->getType()=='membre')):  ?>
+                        <li class="logout"><a href="#">Bonjour <?= $member->getPseudo()?></a>
                             <ul class="menuMember">
                                 <li><a href="index.php?page=deconnexion">Deconnexion</a></li>
                             </ul>
-                        </li>    
+                        </li>
+                    <?php elseif((!empty($member)) && ($member->getType()=='admin')): ?>
+                        <li class="logout"><a href="#">Bonjour <?= $member->getPseudo()?></a>
+                            <ul class="menuMember">
+                                <li><a href="index.php?page=deconnexion">Deconnexion</a></li>
+                                <li><a href="index.php?page=admin">Administration</a></li>
+                            </ul>
+                        </li>
                     <?php else : ?>
-                        <li class="menuMemberOnClick"><a href="#">Espace membre<div class="triangle"></div></a>
+                        <li class="menuMemberOnClick"><a href="#">Espace membre</a>
                             <ul class="menuMember">
                                 <li><a href="index.php?page=login">Connexion</a></li>
                                 <li><a href="index.php?page=registration">Inscription</a></li>
                             </ul>
                         </li>
                     <?php endif; ?>
+
+                    <li><div class="triangle"></div></li>
                 </ul>
             </nav>
         </header>
@@ -64,6 +70,7 @@ $member=unserialize($_SESSION['member']);
                 aucune information le concernant sur ce site. </h4>
         </footer>
 
+        <script src="public/JavaScript/Slider.js"></script>
         <script src="public/JavaScript/SpaceMember.js"></script>
         <script src="public/JavaScript/main.js"></script>
     </body>

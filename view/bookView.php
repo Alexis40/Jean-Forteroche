@@ -41,7 +41,8 @@
    <input type="hidden" name="idChapter" value="<?=$chapter->getId() ?>">
       <div>
          <label for="author">Auteur</label></br>
-         <input type="text" id="author" name="author">
+         
+         <input type="text" id="author" name="author" <?php if(!empty($_SESSION)): ?>value="<?= $member->getPseudo()?>" <?php else : ?> value="Invité" <?php endif; ?> readonly >
       </div>
       <div>
          <label for="content">Commentaire</label></br>

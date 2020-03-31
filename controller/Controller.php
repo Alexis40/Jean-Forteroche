@@ -11,9 +11,11 @@ class Controller{
         return $view->render('view/homeView.php', ['title'=>$title, 'chaptersList'=>$chaptersList]);
     }
 
-    public function chapter($message=null){
+    public function chapter($message=null, $member=null){
         $title = 'Billet simple pour l\'Alaska';
-
+        if(!empty($_SESSION)){
+            $member=unserialize($_SESSION['member']);
+        }
         //Permet l'affichage des chapitres en fonction de l'id.
         $chapterManager = new ChapterManager();
         $idLastChapter = $chapterManager->getLastIdChapter();
@@ -30,15 +32,23 @@ class Controller{
         //Permet l'affichage de la vue book
         $view = new View();
 
-        return $view->render('view/bookView.php', ['title'=>$title, 'chapter'=>$chapter, 'commentsList'=>$commentsList, 'allChapter'=>$allChapter, 'message'=>$message]);
+        return $view->render('view/bookView.php', [ 'title'=>$title, 
+                                                    'chapter'=>$chapter, 
+                                                    'commentsList'=>$commentsList, 
+                                                    'allChapter'=>$allChapter, 
+                                                    'message'=>$message, 
+                                                    'member'=>$member
+                                                    ]);
     }
 
     public function addComment(){
         $commentManager = new CommentManager();
         $comment = new Comment($_REQUEST);
-
+        $content= $comment->getContent();
+        $content= htmlspecialchars($content);
+        $comment->setContent($content);
         $commentManager->postComment($comment);
-        return $this->chapter('votre commentaire est bien ajouté');
+        return $this->chapter('votre commentaire est bien ajouté', $member=null);
     }
 
     public function loginPage($pseudo=null, $warningConnexionMessage=null){
@@ -95,7 +105,8 @@ class Controller{
                         $newMember->setPass($encodedPassword);
                         $addMember = new MembersManager();
                         $addMember->addmember($newMember);
-                        $warningRegistrationMessage = 'Vous êtes maintenant enregistré, vous pouvez vous rendre sur la page de connexion et entrer vos identifiant.';
+                        $warningRegistrationMessage = 'Vous êtes maintenant enregistré, vous pouvez vous connecter.';
+                        return $this->loginPage($newMember->getPseudo(), $warningRegistrationMessage);
                     } else {
                         $warningRegistrationMessage = 'Les mots de passe sont différents';
                     }
@@ -112,13 +123,13 @@ class Controller{
         return $view->render('view/registrationView.php', ['title'=>$title, 'warningRegistrationMessage'=>$warningRegistrationMessage]);
     }
 
-    public function errorPage(){
-        $title = 'Page d\'erreur';
+    public function adminPage(){
+        $title = 'Administration';
 
         //Affichage de la page d'erreur
         $view = new View();
 
-        return $view->render('view/errorView.php', ['title'=>$title]);
+        return $view->render('view/adminView.php', ['title'=>$title]);
     }
 
     

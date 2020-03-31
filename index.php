@@ -4,6 +4,7 @@ require_once('framework/Autoloader.php');
 Autoloader::register();
 session_start();
 
+
 $page = $_REQUEST['page'] ?? 'home';
 
 switch($page){
@@ -42,8 +43,13 @@ switch($page){
         echo $controller->registrationPage();
         break;
         
+    case 'admin';
+        $controller = new Controller();
+        echo $controller->adminPage();
+        break;
+
     default:
         $controller = new Controller();
-        echo $controller->errorPage();
+        echo 'mauvaise page';
         
 }

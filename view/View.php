@@ -2,6 +2,9 @@
 
 class View {
     public function render($path, $param){
+        if(!empty($_SESSION)){
+            $member=unserialize($_SESSION['member']);
+        }
         $content = $this->renderContent($path, $param);
         extract($param);
         ob_start();
