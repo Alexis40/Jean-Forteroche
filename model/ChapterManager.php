@@ -26,9 +26,20 @@ class ChapterManager extends Model{
         return $allChaptersList;
     }
 
+    public function getAllChapterWithID(){
+        $sql = ('SELECT * FROM chapter ORDER BY chapterNumber');
+        $allChaptersList = [];
+        $statement = $this->executeQuery($sql);
+        while($rs = $statement->fetch()){
+            $chapter = new Chapter($rs);
+            $allChaptersList[$chapter->getId()]= $chapter;
+        }
+        return $allChaptersList;
+    }
+
     /*Permet de récuperer un chapitre donc on connais l'id*/
     public function getChapter($id){
-        $sql = ('SELECT * FROM chapter WHERE id = ?');
+        $sql = ('SELECT * FROM chapter WHERE id=?');
         $args = array($id);
         $statement = $this->prepareQuery($sql, $args);
         $rs = $statement->fetch();
@@ -38,6 +49,7 @@ class ChapterManager extends Model{
         }
         return null;
     }
+
     /*Permet de récuperer le chapitre qui à le dernier id dans la table.*/
     public function getLastIdChapter(){
         $sql = ('SELECT MAX(id) AS max_id FROM chapter');
@@ -46,4 +58,11 @@ class ChapterManager extends Model{
 
         return $rs['max_id'];
     }
-}
+
+    /*REQUÈTE PERMETTANT DE PASSER LE CHAMP REPORT (QUI EST INITIALEMENT DEFINI A 0) A 1 */
+    public function changeReport($reportId){
+        $sql = ('UPDATE comments SET report=1 WHERE id=?');
+        $args = array($reportId);
+        return $this->prepareQuery($sql, $args);
+    }
+}   

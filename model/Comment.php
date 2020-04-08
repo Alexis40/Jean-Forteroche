@@ -4,9 +4,10 @@ class Comment extends AbstractEntity{
 
     private $_id;
     private $_idChapter;
-    private $_content;
+    private $_commentContent;
     private $_dateOfPublication;
     private $_author;
+    private $_report;
 
     //ATTRIBUT ID
     public function getId(){
@@ -25,11 +26,11 @@ class Comment extends AbstractEntity{
     }
 
     //ATTRIBUT CONTENT
-    public function getContent(){
-        return $this->_content;
+    public function getCommentContent(){
+        return $this->_commentContent;
     }
-    public function setContent($content){
-        $this->_content = $content;
+    public function setCommentContent($commentContent){
+        $this->_commentContent = $commentContent;
     }
 
     //ATTRIBUT DATEOFPUBLICATION
@@ -52,5 +53,18 @@ class Comment extends AbstractEntity{
     }
     public function setAuthor($author){
         $this->_author = $author;
+    }
+
+    //ATTRIBUT REPORT
+    public function getReport(){
+        if($this->_report==1){
+            $this->_report = 'Signalé';
+        } else {
+            $this->_report = '';
+        }
+        return $this->_report;
+    }
+    public function setReport($report){
+        $this->_report = $report;
     }
 }

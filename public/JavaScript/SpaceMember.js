@@ -7,13 +7,13 @@ class SpaceMember {
 
     connexionSpaceMember(){
         if(this.logOutMember==null){
-            this.spaceMemeberConnexionChoice(this.animMember);
+            this.spaceMemberConnexionChoice(this.animMember);
         } else {
-            this.spaceMemeberConnexionChoice(this.logOutMember);
+            this.spaceMemberConnexionChoice(this.logOutMember);
         }
     }
 
-    spaceMemeberConnexionChoice(classMember){
+    spaceMemberConnexionChoice(classMember){
         classMember.addEventListener("click", function(){
             this.display = getComputedStyle(this.menuMember, null).display;
             if(this.display == "block"){

@@ -24,7 +24,7 @@
                         <li class="logout"><a href="#">Bonjour <?= $member->getPseudo()?></a>
                             <ul class="menuMember">
                                 <li><a href="index.php?page=deconnexion">Deconnexion</a></li>
-                                <li><a href="index.php?page=admin">Administration</a></li>
+                                <li><a href="index.php?page=adminChapters">Administration</a></li>
                             </ul>
                         </li>
                     <?php else : ?>
@@ -70,6 +70,7 @@
                 aucune information le concernant sur ce site. </h4>
         </footer>
 
+        
         <script src="public/JavaScript/Slider.js"></script>
         <script src="public/JavaScript/SpaceMember.js"></script>
         <script src="public/JavaScript/main.js"></script>

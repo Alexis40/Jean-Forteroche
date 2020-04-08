@@ -2,7 +2,7 @@
 
 class Controller{
 
-    public function chaptersList(){
+    public function homePage(){
         $title = 'Accueil';
         $chapterManager = new ChapterManager();
         $chaptersList = $chapterManager->getChapters();
@@ -11,7 +11,7 @@ class Controller{
         return $view->render('view/homeView.php', ['title'=>$title, 'chaptersList'=>$chaptersList]);
     }
 
-    public function chapter($message=null, $member=null){
+    public function chapterPage($message=null, $member=null){
         $title = 'Billet simple pour l\'Alaska';
         if(!empty($_SESSION)){
             $member=unserialize($_SESSION['member']);
@@ -29,9 +29,7 @@ class Controller{
         $commentManager = new CommentManager();
         $commentsList = $commentManager->getComments($idChapter);
 
-        //Permet l'affichage de la vue book
         $view = new View();
-
         return $view->render('view/bookView.php', [ 'title'=>$title, 
                                                     'chapter'=>$chapter, 
                                                     'commentsList'=>$commentsList, 
@@ -41,14 +39,16 @@ class Controller{
                                                     ]);
     }
 
-    public function addComment(){
-        $commentManager = new CommentManager();
+    public function addCommentAction(){
         $comment = new Comment($_REQUEST);
-        $content= $comment->getContent();
+
+        $content = $comment->getCommentContent();
+
         $content= htmlspecialchars($content);
-        $comment->setContent($content);
+        $comment->setCommentContent($content);
+        $commentManager = new CommentManager();
         $commentManager->postComment($comment);
-        return $this->chapter('votre commentaire est bien ajouté', $member=null);
+        return $this->chapterPage('votre commentaire est bien ajouté', $member=null);
     }
 
     public function loginPage($pseudo=null, $warningConnexionMessage=null){
@@ -58,6 +58,7 @@ class Controller{
 
         return $view->render('view/loginView.php', ['title'=>$title, 'pseudo'=>$pseudo, 'warningConnexionMessage'=>$warningConnexionMessage]);
     }
+
     //CETTE FOONCTION EST APPELÉ QUAND ON APPUI SUR LE LIEN DE CONNEXION.
     public function connexion(){
         $pseudo = $_POST['connectPseudo'];
@@ -76,7 +77,7 @@ class Controller{
                     return $this->loginPage($pseudo);
                 } else {
                     $_SESSION['member'] = serialize($member);
-                    return $this->chaptersList();
+                    return $this->homePage();
                 }
             } else {
                 $warningConnexionMessage = 'Mauvais identifiant ou mot de passe';
@@ -89,7 +90,7 @@ class Controller{
     public function deconnexion(){
         $_SESSION = array();
         session_destroy();
-        return $this->chaptersList();
+        return $this->homePage();
     }
 
     public function registrationPage($warningRegistrationMessage=null){
@@ -123,14 +124,54 @@ class Controller{
         return $view->render('view/registrationView.php', ['title'=>$title, 'warningRegistrationMessage'=>$warningRegistrationMessage]);
     }
 
-    public function adminPage(){
-        $title = 'Administration';
-
-        //Affichage de la page d'erreur
+    public function adminChapters(){
+        $title = 'Administration des chapitres';
+       
         $view = new View();
 
-        return $view->render('view/adminView.php', ['title'=>$title]);
+        return $view->renderAdmin('view/adminChaptersView.php', ['title'=>$title]);
     }
 
+    public function adminCommentsPage($warningMessage=null){
+        $title = 'Administration des commentaires';
+        $commentManager = new CommentManager();
+        $allcomments = $commentManager->getAllComments();
+
+        $chapterManager = new ChapterManager();
+        $allChapters = $chapterManager->getAllChapterWithID();
+
+        $view = new View();
+
+        return $view->renderAdmin('view/adminCommentsView.php', [   'title'=>$title, 
+                                                                    'allComments'=>$allcomments,
+                                                                    'allChapters'=>$allChapters, 
+                                                                    'warningMessage'=>$warningMessage
+                                                                    ]);
+    }
     
+    public function reportAction(){
+        $chapterManager = new ChapterManager();
+        $reportId = $_GET['reportId'];
+        $chapterManager->changeReport($reportId);
+        $warningMessage = ('Le commentaire à bien été signalé.');
+        return $this->chapterPage($warningMessage);
+    }
+
+    public function deleteCommentAction(){
+        $idDelComment = $_REQUEST['idDelComment'];
+        $commentManager = new CommentManager();
+        $commentManager->deleteComment($idDelComment);
+        $warningMessage = 'Le commentaire à bien été supprimé.';
+        return $this->adminCommentsPage($warningMessage);
+    }
+
+    public function modifyReportAction(){
+        $idModifyReport = $_REQUEST['idModifyReport'];
+        $commentManager = new CommentManager();
+        $commentManager->modifyReport($idModifyReport);
+        $warningMessage = 'Le signalement à bien été supprimé.';
+        return $this->adminCommentsPage($warningMessage);
+
+    }
+
 }

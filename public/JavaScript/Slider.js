@@ -26,7 +26,6 @@ class Slider {
         image.src = this.listImage[this.indexImage][0];
         image.alt = this.listImage[this.indexImage][1];
         image.style.width = "100%";
-        //image.style.height = "100%";
         document.getElementById("image").appendChild(image);
         let insElts = document.getElementById("instruction");
         let insElt = document.createElement("p");

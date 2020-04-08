@@ -10,17 +10,17 @@ $page = $_REQUEST['page'] ?? 'home';
 switch($page){
     case 'home':
         $controller = new Controller();
-        echo $controller->chaptersList();
+        echo $controller->homePage();
         break;
 
     case 'book';
         $controller = new Controller();
-        echo $controller->chapter();
+        echo $controller->chapterPage();
         break;
     
-    case 'addComment';
+    case 'addCommentAction';
         $controller = new Controller();
-        echo $controller->addComment();
+        echo $controller->addCommentAction();
         break;
     
     case 'login';
@@ -43,9 +43,29 @@ switch($page){
         echo $controller->registrationPage();
         break;
         
-    case 'admin';
+    case 'adminComments';
         $controller = new Controller();
-        echo $controller->adminPage();
+        echo $controller->adminCommentsPage();
+        break;
+
+    case 'deleteCommentAction';
+        $controller = new Controller();
+        echo $controller->deleteCommentAction();
+        break;
+    
+    case 'reportAction';
+        $controller = new Controller();
+        echo $controller->ReportAction();
+        break;
+
+    case 'modifyReportAction';
+        $controller = new Controller();
+        echo $controller->modifyReportAction();
+        break;
+    
+    case 'adminChapters';
+        $controller = new Controller();
+        echo $controller->adminChapters();
         break;
 
     default:
