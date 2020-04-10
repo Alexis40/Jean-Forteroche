@@ -28,7 +28,6 @@ class CommentManager extends Model{
     /*Permet d'insérer un commentaire dans la base*/
     public function postComment($comment){
         $sql = ('INSERT INTO comments(idChapter, commentContent, author, dateOfPublication)VALUES(?,?,?, NOW())');
-        var_dump($comment);
         $args = array($comment->getIdChapter(), $comment->getCommentContent(), $comment->getAuthor());
         return $this->prepareQuery($sql, $args);
     }

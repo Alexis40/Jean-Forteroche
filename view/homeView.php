@@ -18,7 +18,7 @@
                     <h3>
                         Chapitre <?= $chapter->getChapterNumber();?> : <?= $chapter->getChapterName(); ?>
                     </h3>
-                    <p><?= $chapter->getShortContent500(); ?> ... </p>
+                    <p><?= $chapter->getShortChapterContent500(); ?> ... </p>
                     <p><em>Publier le : <?= $chapter->getDateOfPublicationDMY(); ?></em></p>
 
                     <button><a href="index.php?page=book&amp;id=<?=$chapter->getId();?>"> Lire la suite ...</a></button>

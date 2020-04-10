@@ -8,10 +8,10 @@
 
     <body>
         <header>
-            <a href="index.php?page=home"><img class='logoHeader' src="public/images/LogoJF.png" alt="Jean Forteroche"/></a>
+            <a href="index.php?page=homePage"><img class='logoHeader' src="public/images/LogoJF.png" alt="Jean Forteroche"/></a>
             <nav class="nav-header">
                 <ul>
-                    <li><a href="index.php?page=home">Accueil</a></li>
+                    <li><a href="index.php?page=homePage">Accueil</a></li>
                     <li><a href="index.php?page=book">Billet simple pourl'Alaska</a></li>
 <!-- CES CONDITIONS PERMETTENT D'ASSURER LA GESTION DES DIFFÉRENTS AFFICHAGES DE LA SECTION MEMBRE EN FONCTION DU TYPE DE MENBRE CONNECTÉ-->
                     <?php if((!empty($member)) && ($member->getType()=='membre')):  ?>

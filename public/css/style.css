@@ -189,6 +189,7 @@ header
 .partOfChapter, .chapter, .navChapter
 {
     background-color: #DEB887;
+    width:33%;
     margin: 8px;
     padding: 8px;
     border-radius: 0px 20px 0px 20px;
@@ -238,7 +239,7 @@ header
   
 }
 
-/*-------------ADMINISTRATION PAGE-------------*/
+/*-------------adminCommentsView------------*/
 #administration{
     background-color: whitesmoke;
 }
@@ -258,6 +259,11 @@ table button:hover{
 }
 th, td{
     border-top: 2px solid #a3a2a2;
+}
+
+/*-------------adminChaptersView------------*/
+#editChapter{
+    width: 80%;
 }
 /*-------------FOOTER-------------*/
 footer

@@ -65,4 +65,24 @@ class ChapterManager extends Model{
         $args = array($reportId);
         return $this->prepareQuery($sql, $args);
     }
+
+    /*REQUÈTE PERMETTANT D'AJOUTER UN CHAPITRE A LA BASE DANS LA TABLE CHAPTER*/
+    public function addChapter($addChapter){
+        $sql = ('INSERT INTO chapter(chapterNumber, chapterName, ChapterContent, dateOfPublication)VALUES(?,?,?,NOW())');
+        $args = array($addChapter->getChapterNumber(),$addChapter->getChapterName(),$addChapter->getAllChapterContent());
+        return $this->prepareQuery($sql, $args);
+    }
+
+    /* SUPPRESSION DES CHAPITRES */
+    public function deleteChapter($idDeleteChapter){
+        $sql = ('DELETE FROM chapter WHERE id=?');
+        $args = array($idDeleteChapter);
+        return $this->prepareQuery($sql, $args);
+   }
+
+   public function updateChapter($updateChapter){
+       $sql = ('UPDATE chapter SET ChapterContent=? WHERE id=?');
+       $args = array($updateChapter->getAllChapterContent(), $updateChapter->getId());
+       return $this->prepareQuery($sql, $args);
+   }
 }   

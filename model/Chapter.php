@@ -5,7 +5,7 @@ class Chapter extends AbstractEntity{
     private $_id;
     private $_chapterNumber;
     private $_chapterName;
-    private $_content;
+    private $_chapterContent;
     private $_dateOfPublication;
 
 //ATTRIBUT $_ID
@@ -33,17 +33,17 @@ class Chapter extends AbstractEntity{
     }
 
 //ATTRIBUT $_CONTENT.
-    public function getAllContent(){
-        return $this->_content;
+    public function getAllChapterContent(){
+        return $this->_chapterContent;
     }
-    public function getShortContent500(){
-        return substr($this->_content, 0, 500);
+    public function getShortChapterContent500(){
+        return substr($this->_chapterContent, 0, 500);
     }
-    public function getShortContent100(){
-        return substr($this->_content, 0, 100);
+    public function getShortChapterContent100(){
+        return substr($this->_chapterContent, 0, 100);
     }
-    public function setContent($content){
-        $this->_content = $content;
+    public function setChapterContent($chapterContent){
+        $this->_chapterContent = $chapterContent;
     }
 
 //ATTRIBUT $_DATEOFPUBLICATION.

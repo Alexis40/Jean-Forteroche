@@ -5,7 +5,7 @@
       ?>
          <p>Chapitre <?= $chapter->getChapterNumber(); ?></p>
          <h1><?= $chapter->getChapterName(); ?></h1>
-         <p class='completText'><?= $chapter->getAllContent(); ?></p>
+         <p class='completText'><?= $chapter->getAllChapterContent(); ?></p>
          <p>Publié le : <?= $chapter->getDateOfPublicationDMY(); ?></p>
       <?php
       } else {
@@ -20,7 +20,7 @@
             <h4>Chapitre <?= $chaptershow->getChapterNumber()?></br>
                <?= $chaptershow->getChapterName()?>
             </h4>
-            <p><?=$chaptershow->getShortContent100()?></p>
+            <p><?=$chaptershow->getShortChapterContent100()?></p>
          </a>
       <?php endforeach;?>
    </div>

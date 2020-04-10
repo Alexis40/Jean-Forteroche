@@ -4,6 +4,8 @@
         <meta charset="utf-8" />
         <title><?= $title ?></title>
         <link href="public/css/style.css" rel="stylesheet" />
+        <script src="https://cdn.tiny.cloud/1/19tjp0ohg1szdhtq86o2vj8pthuvs5op98vi3x5o741921ay/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+       
     </head>
 
     <body>
@@ -12,7 +14,7 @@
             <nav class="navAdminHeader">
                 <a href="index.php?page=adminComments">Administration des commentaires</a>
                 <a href="index.php?page=adminChapters">Administration des chapitres</a>
-                <a href="index.php?page=home">Quitter votre espace d'administration</a>
+                <a href="index.php?page=homePage">Quitter votre espace d'administration</a>
             </nav>
         </header>
 

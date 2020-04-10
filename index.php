@@ -8,7 +8,7 @@ session_start();
 $page = $_REQUEST['page'] ?? 'home';
 
 switch($page){
-    case 'home':
+    case 'homePage':
         $controller = new Controller();
         echo $controller->homePage();
         break;
@@ -65,7 +65,27 @@ switch($page){
     
     case 'adminChapters';
         $controller = new Controller();
-        echo $controller->adminChapters();
+        echo $controller->adminChaptersPage();
+        break;
+
+    case 'addChapterAction';
+        $controller = new Controller();
+        echo $controller->addChapterAction();
+        break;
+
+    case 'modifyChapterAction';
+        $controller = new Controller();
+        echo $controller->modifyChapterAction();
+        break;
+
+    case 'deleteChapterAction';
+        $controller = new Controller();
+        echo $controller->deleteChapterAction();
+        break;
+
+    case 'updateChapterAction';
+        $controller = new Controller();
+        echo $controller->updateChapterAction();
         break;
 
     default:

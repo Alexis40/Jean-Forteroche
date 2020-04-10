@@ -7,7 +7,6 @@ class Controller{
         $chapterManager = new ChapterManager();
         $chaptersList = $chapterManager->getChapters();
         $view = new View();
-
         return $view->render('view/homeView.php', ['title'=>$title, 'chaptersList'=>$chaptersList]);
     }
 
@@ -21,14 +20,11 @@ class Controller{
         $idLastChapter = $chapterManager->getLastIdChapter();
         $idChapter = $_GET['id'] ?? $idLastChapter;
         $chapter = $chapterManager->getChapter($idChapter);
-
         //Permet l'affichage de tous les chapitres du livre.
         $allChapter = $chapterManager->getAllChapters();
-
         //Permet l'affichage des commentaires.
         $commentManager = new CommentManager();
         $commentsList = $commentManager->getComments($idChapter);
-
         $view = new View();
         return $view->render('view/bookView.php', [ 'title'=>$title, 
                                                     'chapter'=>$chapter, 
@@ -41,9 +37,7 @@ class Controller{
 
     public function addCommentAction(){
         $comment = new Comment($_REQUEST);
-
         $content = $comment->getCommentContent();
-
         $content= htmlspecialchars($content);
         $comment->setCommentContent($content);
         $commentManager = new CommentManager();
@@ -53,9 +47,7 @@ class Controller{
 
     public function loginPage($pseudo=null, $warningConnexionMessage=null){
         $title = 'Login';
-
         $view = new View();
-
         return $view->render('view/loginView.php', ['title'=>$title, 'pseudo'=>$pseudo, 'warningConnexionMessage'=>$warningConnexionMessage]);
     }
 
@@ -92,7 +84,7 @@ class Controller{
         session_destroy();
         return $this->homePage();
     }
-
+    //Enregistrement d'un nouveau membre.
     public function registrationPage($warningRegistrationMessage=null){
         $title = 'Créer un compte';
         if(isset($_POST['chooseUsername'])){
@@ -118,35 +110,66 @@ class Controller{
                 $warningRegistrationMessage = 'Le nom choisi doit comporter au moins 2 caractères et commençer par une lettre.';
             }
         }
-        
         $view = new View();
-
-        return $view->render('view/registrationView.php', ['title'=>$title, 'warningRegistrationMessage'=>$warningRegistrationMessage]);
+        return $view->render('view/registrationView.php',   [   'title'=>$title, 
+                                                                'warningRegistrationMessage'=>$warningRegistrationMessage
+                                                            ]);
     }
 
-    public function adminChapters(){
+    public function adminChaptersPage($warningMessage=null, $chapterToModify=null){
         $title = 'Administration des chapitres';
-       
+        $chapterManager = new ChapterManager;
+        $allChapters = $chapterManager->getAllChapters();
         $view = new View();
+        return $view->renderAdmin('view/adminChaptersView.php', [   'title'=>$title, 
+                                                                    'allChapters'=>$allChapters,
+                                                                    'warningMessage'=>$warningMessage,
+                                                                    'chapterToModify'=>$chapterToModify
+                                                                ]);
+    }
+    
+    public function addChapterAction(){
+        $addChapter = new Chapter($_REQUEST);
+        $chapterManager = new ChapterManager();
+        $chapterManager->addChapter($addChapter);
+        $warningMessage = 'Le chapitre à bien été ajouté';
+        return $this->adminChaptersPage($warningMessage);
+    }
 
-        return $view->renderAdmin('view/adminChaptersView.php', ['title'=>$title]);
+    public function deleteChapterAction(){
+        $idDelChapter = $_REQUEST['idDelChapter'];
+        $chapterManager = new ChapterManager();
+        $chapterManager->deleteChapter($idDelChapter);
+        $warningMessage = 'Le chapitre à bien été supprimé.';
+        return $this->adminChaptersPage($warningMessage);
+    }
+
+    public function modifyChapterAction(){
+        $chapterManager = new ChapterManager();
+        $chapterToModify = $chapterManager->getChapter($_REQUEST['idModifyChapter']);
+        return $this->adminChaptersPage($warningMessage=null, $chapterToModify);
+    }
+
+    public function updateChapterAction(){
+        $updateChapter = new Chapter($_REQUEST);
+        $chapterManager = new ChapterManager();
+        $chapterManager->updateChapter($updateChapter);
+        $warningMessage = 'Vous avez bien modifier le chapitre : ' . $updateChapter->getChapterName();
+        return $this->adminChaptersPage($warningMessage, $chapterToModify=null);
     }
 
     public function adminCommentsPage($warningMessage=null){
         $title = 'Administration des commentaires';
         $commentManager = new CommentManager();
         $allcomments = $commentManager->getAllComments();
-
         $chapterManager = new ChapterManager();
         $allChapters = $chapterManager->getAllChapterWithID();
-
         $view = new View();
-
         return $view->renderAdmin('view/adminCommentsView.php', [   'title'=>$title, 
                                                                     'allComments'=>$allcomments,
                                                                     'allChapters'=>$allChapters, 
                                                                     'warningMessage'=>$warningMessage
-                                                                    ]);
+                                                                ]);
     }
     
     public function reportAction(){
@@ -171,7 +194,5 @@ class Controller{
         $commentManager->modifyReport($idModifyReport);
         $warningMessage = 'Le signalement à bien été supprimé.';
         return $this->adminCommentsPage($warningMessage);
-
     }
-
 }
