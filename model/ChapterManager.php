@@ -81,8 +81,8 @@ class ChapterManager extends Model{
    }
 
    public function updateChapter($updateChapter){
-       $sql = ('UPDATE chapter SET ChapterContent=? WHERE id=?');
-       $args = array($updateChapter->getAllChapterContent(), $updateChapter->getId());
+       $sql = ('UPDATE chapter SET ChapterContent=?, ChapterNumber=?, ChapterName=? WHERE id=?');
+       $args = array($updateChapter->getAllChapterContent(),$updateChapter->getChapterNumber(), $updateChapter->getChapterName(), $updateChapter->getId() );
        return $this->prepareQuery($sql, $args);
    }
 }   

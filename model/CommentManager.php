@@ -2,7 +2,7 @@
 class CommentManager extends Model{
 
     public function getAllComments(){
-        $sql = ('SELECT * FROM comments ORDER BY report DESC');
+        $sql = ('SELECT * FROM comments ORDER BY report DESC, idChapter');
         $allCommentsList = [];
         $statement = $this->executeQuery($sql);
         while($rs = $statement->fetch()){

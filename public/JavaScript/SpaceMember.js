@@ -20,7 +20,11 @@ class SpaceMember {
                 this.menuMember.style.display = "none";
             } else {
                 this.menuMember.style.display = "block";
+                this.testdeconnexion;
             }
+        }.bind(this));
+        classMember.addEventListener("mouseleave", function(){
+            this.menuMember.style.display = "none";
         }.bind(this));
     }
 }

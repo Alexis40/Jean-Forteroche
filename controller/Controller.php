@@ -7,10 +7,12 @@ class Controller{
         $chapterManager = new ChapterManager();
         $chaptersList = $chapterManager->getChapters();
         $view = new View();
-        return $view->render('view/homeView.php', ['title'=>$title, 'chaptersList'=>$chaptersList]);
+        return $view->render('view/homeView.php', [ 'title'=>$title, 
+                                                    'chaptersList'=>$chaptersList
+                                                    ]);
     }
 
-    public function chapterPage($message=null, $member=null){
+    public function chapterPage($warningMessage=null, $member=null){
         $title = 'Billet simple pour l\'Alaska';
         if(!empty($_SESSION)){
             $member=unserialize($_SESSION['member']);
@@ -30,7 +32,7 @@ class Controller{
                                                     'chapter'=>$chapter, 
                                                     'commentsList'=>$commentsList, 
                                                     'allChapter'=>$allChapter, 
-                                                    'message'=>$message, 
+                                                    'warningMessage'=>$warningMessage, 
                                                     'member'=>$member
                                                     ]);
     }
@@ -42,17 +44,20 @@ class Controller{
         $comment->setCommentContent($content);
         $commentManager = new CommentManager();
         $commentManager->postComment($comment);
-        return $this->chapterPage('votre commentaire est bien ajouté', $member=null);
+        return $this->chapterPage('Votre commentaire a bien été ajouté', $member=null);
     }
 
     public function loginPage($pseudo=null, $warningConnexionMessage=null){
         $title = 'Login';
         $view = new View();
-        return $view->render('view/loginView.php', ['title'=>$title, 'pseudo'=>$pseudo, 'warningConnexionMessage'=>$warningConnexionMessage]);
+        return $view->render('view/loginView.php', ['title'=>$title, 
+                                                    'pseudo'=>$pseudo, 
+                                                    'warningConnexionMessage'=>$warningConnexionMessage
+                                                    ]);
     }
 
     //CETTE FOONCTION EST APPELÉ QUAND ON APPUI SUR LE LIEN DE CONNEXION.
-    public function connexion(){
+    public function connexionPage(){
         $pseudo = $_POST['connectPseudo'];
         $password = $_POST['connectPassword'];
         if(($pseudo==null) || ($password==null)){
@@ -79,7 +84,7 @@ class Controller{
     }
 
     //CETTE FONCTION EST APPELÉ QUAND ON APPUIS SUR LE LIEN DE DECONNEXION
-    public function deconnexion(){
+    public function deconnexionPage(){
         $_SESSION = array();
         session_destroy();
         return $this->homePage();
@@ -98,16 +103,16 @@ class Controller{
                         $newMember->setPass($encodedPassword);
                         $addMember = new MembersManager();
                         $addMember->addmember($newMember);
-                        $warningRegistrationMessage = 'Vous êtes maintenant enregistré, vous pouvez vous connecter.';
+                        $warningRegistrationMessage = 'Vous êtes maintenant enregistré(e), vous pouvez vous connecter.';
                         return $this->loginPage($newMember->getPseudo(), $warningRegistrationMessage);
                     } else {
-                        $warningRegistrationMessage = 'Les mots de passe sont différents';
+                        $warningRegistrationMessage = 'Les mots de passe sont différents.';
                     }
                 } else {
                     $warningRegistrationMessage = 'Le mot de passe doit comporter au moins 5 caractères, 1 majuscule et 1 chiffre.';
                 }
             } else {
-                $warningRegistrationMessage = 'Le nom choisi doit comporter au moins 2 caractères et commençer par une lettre.';
+                $warningRegistrationMessage = 'Le nom choisi doit comporter au moins 2 caractères et commencer par une lettre.';
             }
         }
         $view = new View();
@@ -115,49 +120,45 @@ class Controller{
                                                                 'warningRegistrationMessage'=>$warningRegistrationMessage
                                                             ]);
     }
-
-    public function adminChaptersPage($warningMessage=null, $chapterToModify=null){
+//---------------------------------LA SECTION ADMINISTRATION/CHAPITRE--------------------------------------
+    public function adminChaptersPage($warningMessage=null){
         $title = 'Administration des chapitres';
         $chapterManager = new ChapterManager;
         $allChapters = $chapterManager->getAllChapters();
+        $idLastChapter = $chapterManager->getLastIdChapter();
+        $idChapter = $_GET['chapterId'] ?? $idLastChapter;
+        $seeChapter = $chapterManager->getChapter($idChapter);
         $view = new View();
         return $view->renderAdmin('view/adminChaptersView.php', [   'title'=>$title, 
                                                                     'allChapters'=>$allChapters,
                                                                     'warningMessage'=>$warningMessage,
-                                                                    'chapterToModify'=>$chapterToModify
+                                                                    'seeChapter'=>$seeChapter
                                                                 ]);
-    }
-    
-    public function addChapterAction(){
-        $addChapter = new Chapter($_REQUEST);
-        $chapterManager = new ChapterManager();
-        $chapterManager->addChapter($addChapter);
-        $warningMessage = 'Le chapitre à bien été ajouté';
-        return $this->adminChaptersPage($warningMessage);
     }
 
     public function deleteChapterAction(){
         $idDelChapter = $_REQUEST['idDelChapter'];
         $chapterManager = new ChapterManager();
         $chapterManager->deleteChapter($idDelChapter);
-        $warningMessage = 'Le chapitre à bien été supprimé.';
+        $warningMessage = 'Le chapitre a bien été supprimé.';
         return $this->adminChaptersPage($warningMessage);
     }
 
     public function modifyChapterAction(){
         $chapterManager = new ChapterManager();
         $chapterToModify = $chapterManager->getChapter($_REQUEST['idModifyChapter']);
-        return $this->adminChaptersPage($warningMessage=null, $chapterToModify);
+        return $this->adminCreateChapterPage($warningMessage=null, $chapterToModify);
     }
 
     public function updateChapterAction(){
         $updateChapter = new Chapter($_REQUEST);
         $chapterManager = new ChapterManager();
         $chapterManager->updateChapter($updateChapter);
-        $warningMessage = 'Vous avez bien modifier le chapitre : ' . $updateChapter->getChapterName();
-        return $this->adminChaptersPage($warningMessage, $chapterToModify=null);
+        $warningMessage = 'Vous avez bien modifié le chapitre : ' . $updateChapter->getChapterName();
+        return $this->adminChaptersPage($warningMessage);
     }
 
+//---------------------------------LA SECTION ADMINISTRATION/COMMENTAIRES--------------------------------------
     public function adminCommentsPage($warningMessage=null){
         $title = 'Administration des commentaires';
         $commentManager = new CommentManager();
@@ -176,7 +177,7 @@ class Controller{
         $chapterManager = new ChapterManager();
         $reportId = $_GET['reportId'];
         $chapterManager->changeReport($reportId);
-        $warningMessage = ('Le commentaire à bien été signalé.');
+        $warningMessage = ('Le commentaire a bien été signalé.');
         return $this->chapterPage($warningMessage);
     }
 
@@ -184,7 +185,7 @@ class Controller{
         $idDelComment = $_REQUEST['idDelComment'];
         $commentManager = new CommentManager();
         $commentManager->deleteComment($idDelComment);
-        $warningMessage = 'Le commentaire à bien été supprimé.';
+        $warningMessage = 'Le commentaire a bien été supprimé.';
         return $this->adminCommentsPage($warningMessage);
     }
 
@@ -192,7 +193,41 @@ class Controller{
         $idModifyReport = $_REQUEST['idModifyReport'];
         $commentManager = new CommentManager();
         $commentManager->modifyReport($idModifyReport);
-        $warningMessage = 'Le signalement à bien été supprimé.';
+        $warningMessage = 'Le signalement a bien été supprimé.';
         return $this->adminCommentsPage($warningMessage);
+    }
+//---------------------------------LA SECTION ADMINISTRATION/CRÉATION DE CHAPITRE--------------------------------------
+    public function adminCreateChapterPage($warningMessage=null){
+        $title = 'Création d\'un chapitre';
+        $chapterManager = new ChapterManager();
+        if(isset($_REQUEST['idModifyChapter'])){
+            $chapterToModify = $chapterManager->getChapter($_REQUEST['idModifyChapter']);
+        } else {
+            $chapterToModify=null;
+        }
+        $view = new View();
+        return $view->renderAdmin('view/adminCreateChapterView.php',    [   'title'=>$title,
+                                                                            'chapterToModify'=>$chapterToModify,
+                                                                            'warningMessage'=>$warningMessage,
+                                                                        ]);
+    }
+    public function addChapterAction(){
+       if(preg_match("#[0-9]#", $_POST['chapterNumber'])){
+        $addChapter = new Chapter($_REQUEST);
+        $chapterManager = new ChapterManager();
+        $chapterManager->addChapter($addChapter);
+        $warningMessage = 'Le chapitre a bien été ajouté.';
+        return $this->adminChaptersPage($warningMessage);
+       } else {
+        return $this->adminCreateChapterPage('Le numéro du chapitre doit être un chiffre.');
+       }
+    }
+
+//---------------------------------LA SECTION ADMINISTRATION/CRÉATION DE CHAPITRE--------------------------------------
+    public function wrongPage(){
+        $title ='Page inexistante';
+        $view = new View();
+        return $view->renderAdmin('view/errorView.php',    [   'title'=>$title,
+                                                            ]);
     }
 }

@@ -5,7 +5,7 @@ Autoloader::register();
 session_start();
 
 
-$page = $_REQUEST['page'] ?? 'home';
+$page = $_REQUEST['page'] ?? 'homePage';
 
 switch($page){
     case 'homePage':
@@ -13,41 +13,46 @@ switch($page){
         echo $controller->homePage();
         break;
 
-    case 'book';
+    case 'bookPage';
         $controller = new Controller();
         echo $controller->chapterPage();
         break;
     
-    case 'addCommentAction';
+    case 'adminChaptersPage';
         $controller = new Controller();
-        echo $controller->addCommentAction();
+        echo $controller->adminChaptersPage();
         break;
     
-    case 'login';
+    case 'loginPage';
         $controller = new Controller();
         echo $controller->loginPage();
         break;
         
-    case 'connexion';
+    case 'connexionPage';
         $controller = new Controller();
-        echo $controller->connexion();
+        echo $controller->connexionPage();
         break;
 
-    case 'deconnexion';
+    case 'deconnexionPage';
         $controller = new Controller();
-        echo $controller->deconnexion();
+        echo $controller->deconnexionPage();
         break;
 
-    case 'registration';
+    case 'registrationPage';
         $controller = new Controller();
         echo $controller->registrationPage();
         break;
         
-    case 'adminComments';
+    case 'adminCommentsPage';
         $controller = new Controller();
         echo $controller->adminCommentsPage();
         break;
 
+    case 'adminCreateChapterPage';
+        $controller = new Controller();
+        echo $controller->adminCreateChapterPage();
+        break;
+        
     case 'deleteCommentAction';
         $controller = new Controller();
         echo $controller->deleteCommentAction();
@@ -61,11 +66,6 @@ switch($page){
     case 'modifyReportAction';
         $controller = new Controller();
         echo $controller->modifyReportAction();
-        break;
-    
-    case 'adminChapters';
-        $controller = new Controller();
-        echo $controller->adminChaptersPage();
         break;
 
     case 'addChapterAction';
@@ -88,8 +88,13 @@ switch($page){
         echo $controller->updateChapterAction();
         break;
 
+    case 'addCommentAction';
+        $controller = new Controller();
+        echo $controller->addCommentAction();
+        break;
+        
     default:
         $controller = new Controller();
-        echo 'mauvaise page';
+        echo $controller->wrongPage();
         
 }
