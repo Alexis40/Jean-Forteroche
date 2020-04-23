@@ -14,7 +14,7 @@ class CommentManager extends Model{
 
     /*Permet de récupérer les commentaires*/
     public function getComments($id){
-        $sql = ('SELECT * FROM comments WHERE idChapter = ?');
+        $sql = ('SELECT * FROM comments WHERE idChapter = ? ORDER BY dateOfPublication DESC');
         $commentList = [];
         $args = array($id);
         $statement = $this->prepareQuery($sql, $args);

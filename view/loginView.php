@@ -2,12 +2,12 @@
 <h2 class="loginTitle">Connexion à votre espace membre</h2>
     <form class='connexionForm' action="index.php?page=connexionPage" method="post">
         <div class='writeField'>
-            <label for="connectPseudo">Pseudo : </label></br>
+            <p class="connexionFormField"><label for="connectPseudo">Pseudo : </label></p>
             <input type="text" id="connectPseudo" name="connectPseudo" value="<?=$pseudo?>">
         </div>
 
         <div class='writeField'>
-            <label for="connectPassword">Mot de passe : </label></br>
+            <p class="connexionFormField"><label for="connectPassword">Mot de passe : </label></p>
             <input type="password" id="connectPassword" name="connectPassword">
         </div>
 

@@ -177,6 +177,11 @@ ul{
 li{
     min-width: max-content;
 }
+.titleFooter{
+    font-size: 1.5em;
+    text-decoration: underline;
+    margin-bottom: 10px;
+}
 /*-------------HOME PAGE-------------*/
 #slider{
     display: flex;
@@ -221,6 +226,7 @@ li{
 }
 
 /*-------------PAGE BOOK-------------*/
+
 #showChapterBook{
     display: flex;
 
@@ -237,13 +243,6 @@ li{
 .navChapter{
     width: 20%;
     overflow: auto;
-}
-
-.navChapter h4{
-    border-top-style: solid;
-    border-top-width: 3px;
-    padding-top: 12px;
-    margin: 10px;
 }
 .navChapter a{
     color : black;
@@ -315,12 +314,36 @@ li{
 .oneComment{
     border-top: 3px solid black;
 }
-/*-------------PAGE BOOK-------------*/
+.chapterNumberNavigation{
+   border-top: 2px solid black;
+   font-size: 20px;
+   font-style: italic;
+}
+.chapterNameNavigation{
+    font-size: 20px;
+    font-weight: bold;
+}
+.chapterNumberNavigation, .chapterNameNavigation, .chapterContentNavigation{
+    margin:0px 10px;
+}
 .loginTitle{
     width: 90%;
     margin: auto;
     padding-top: 30px;
 }
+/*-------------CONNEXION PAGE-------------*/
+.connexionFormField{
+    margin-bottom: 2px;
+    font-size: 25px;
+}
+.explain{
+    font-size: 20px;
+    padding: 10px;
+    margin: auto;
+    border: 2px solid black;
+    width: 80%;
+}
+
 /*-------------ADMIN CHAPTER VIEW-----------*/
 .adminDisplayChapter{
     color: black;
@@ -491,9 +514,15 @@ footer
     table{
         font-size: x-small;
     }
-  
     .createChapter_chapterNumber input{
       margin: auto;
+    }
+    .plan, .social{
+       width: 50%;
+    }
+    .titleFooter{
+        text-align: center;
+        padding: 3px;
     }
    
 }

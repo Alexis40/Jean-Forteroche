@@ -8,10 +8,8 @@
     <div id="showChapter">
         <?php foreach($chaptersList as $chapter): ?>
             <div class="partOfChapter">
-                <h3>
-                    Chapitre <?= $chapter->getChapterNumber();?> : <?= $chapter->getChapterName(); ?>
-                </h3>
-                <p><?= $chapter->getShortChapterContent500(); ?> ... </p>
+                <h3>Chapitre <?= $chapter->getChapterNumber();?> : <?= $chapter->getChapterName(); ?></h3>
+                <div><?= $chapter->getShortChapterContent500(); ?> ... </div>
                 <p><em>Publier le : <?= $chapter->getDateOfPublicationDMY(); ?></em></p>
                 <a class="button" href="index.php?page=bookPage&amp;id=<?=$chapter->getId();?>">Lire la suite</a>
             </div>

@@ -5,7 +5,7 @@
       ?>
          <p class="chapterNumber">Chapitre <?= $chapter->getChapterNumber(); ?></p>
          <h1><?= $chapter->getChapterName(); ?></h1>
-         <div class='completText'>aaaaa<?= $chapter->getAllChapterContent(); ?>bbbbbb</div>
+         <div class='completText'><?= $chapter->getAllChapterContent(); ?></div>
          
          <p class="publicationDate">Publié le : <?= $chapter->getDateOfPublicationDMY(); ?></p>
       <?php
@@ -18,10 +18,9 @@
       <h1>Choisir votre chapitre</h1>
       <?php foreach($allChapter as $chaptershow):?>
          <a href="index.php?page=bookPage&amp;id=<?= $chaptershow->getId(); ?>">
-            <h4>Chapitre <?= $chaptershow->getChapterNumber()?></br>
-               <?= $chaptershow->getChapterName()?>
-            </h4>
-            <p><?=$chaptershow->getShortChapterContent100()?></p>
+            <div class="chapterNumberNavigation">Chapitre <?= $chaptershow->getChapterNumber()?> :</div>
+            <div class="chapterNameNavigation"> <?= $chaptershow->getChapterName()?></div>
+            <div class="chapterContentNavigation"> <?=$chaptershow->getShortChapterContent100()?> </div>
          </a>
       <?php endforeach;?>
    </div>
@@ -53,12 +52,12 @@
    <form class="commentForm" action="index.php?page=addCommentAction&amp;id=<?= $chapter->getId() ?>#commentaire" method="post">
    <input type="hidden" name="idChapter" value="<?= $chapter->getId() ?>">
       <div class="commentAuthor">
-         <label for="author">Auteur : </label></br>
-         <input type="text" id="author" name="author" <?php if(!empty($_SESSION)): ?>value="<?= $member->getPseudo() ?>" <?php else : ?> value="Invité" <?php endif; ?> readonly >
+         <p><label for="author">Auteur : </label></p>
+         <p><input type="text" id="author" name="author" <?php if(!empty($_SESSION)): ?>value="<?= $member->getPseudo() ?>" <?php else : ?> value="Invité" <?php endif; ?> readonly ></p>
       </div>
       <div class="commentContent">
-         <label for="commentContent">Commentaire : </label></br>
-         <textarea name="commentContent" id="commentContent" required></textarea>
+         <p><label for="commentContent">Commentaire : </label></p>
+         <p><textarea name="commentContent" id="commentContent" required></textarea></p>
       </div>
       <div>
          <input class="submitButton" type="submit" >

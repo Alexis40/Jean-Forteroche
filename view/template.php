@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, user-scalable=no">
@@ -50,16 +50,16 @@
         <footer>
             <div id="nav-footer">
                 <nav class="plan">
+                <p class="titleFooter">Plan du site</p>
                     <ul>
-                        <h3>Plan du site</h3>
                         <li><a href="index.php?page=homePage">Accueil</a></li>
                         <li><a href="index.php?page=bookPage">Billet simple pour l'Alaska</a></li>
                         <li><a href="index.php?page=loginPage">Connexion</a></li>
                     </ul>
                 </nav>
                 <nav class="social">
+                <p class="titleFooter">Réseaux sociaux</p>    
                     <ul>
-                        <h3>Réseaux sociaux</h3>
                         <li><a href="https://www.facebook.com/">Facebook</a></li>
                         <li><a href="https://twitter.com/">Twitter</a></li>
                         <li><a href="https://www.instagram.com/?hl=fr">Instagrame</a></li>
